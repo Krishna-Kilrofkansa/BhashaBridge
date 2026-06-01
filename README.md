@@ -1,21 +1,42 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# 🇮🇳 BhashaBridge — Dark Elegant Neural Translator
 
-# Run and deploy your AI Studio app
+**BhashaBridge** is a beautiful, highly personalized, offline-first translation tool designed to narrow the communicative gap between **Northern Hindi** and the **Southern Dravidian language families** (Tamil, Telugu, Kannada, Malayalam). It encapsulates modern Material 3 design paradigms, combining offline translation simulation, on-device voice speech synthesis, and script detection.
 
-This contains everything you need to run your app locally.
+---
 
-View your app in AI Studio: https://ai.studio/apps/9364bc86-9a47-49c3-9386-d4ee2d92df93
+## 🎨 Design Concept: Elegant Dark Slate
+The user interface has been customized around the **Elegant Dark** design guideline:
+- **Calm Charcoal Canvas**: Styled with deep slate primary tones (`#1A1C1E`) and rich visual contrast points.
+- **Deep Blue Accent Highlights**: The translation outputs are encased in striking deep-sea cobalt panels (`#004A77`) paired with a high-contrast ice-blue text field (`#C2E8FF`).
+- **Pristine Fluidity**: Integrated a standard vertical scroll fallback, avoiding cramped buttons or overflowing indicators on ultra-compact phone devices.
 
-## Run Locally
+---
 
-**Prerequisites:**  [Android Studio](https://developer.android.com/studio)
+## 🚀 Key Functional Modules
 
+### 1. Offline & Local Bridge Architecture
+- **Interactive Translation Engine**: Supports multi-mode operations including Direct Translation, Script Auto-detection, and Phonetic Romanization (helpful for reading Dravidian/Devanagari text in Latin character formats).
+- **Offline Intelligence Concept**: Mimics the neural inference speeds of Gemma's local language processing.
 
-1. Open Android Studio
-2. Select **Open** and choose the directory containing this project
-3. Allow Android Studio to fix any incompatibilities as it imports the project.
-4. Create a file named `.env` in the project directory and set `GEMINI_API_KEY` in that file to your Gemini API key (see `.env.example` for an example)
-5. Remove this line from the app's `build.gradle.kts` file: `signingConfig = signingConfigs.getByName("debugConfig")`
-6. Run the app on an emulator or physical device
+### 2. Immersive Speech & Audio Utilities
+- **🎙️ Voice Recognition Input**: Provides immediate speech-to-text recognition localized dynamically to the selected source input dialect (Bcp47 mapping: `hi-IN`, `ta-IN`, `te-IN`, etc.).
+- **🔊 Immediate Text-To-Speech (TTS)**: Every translation automatically synthesized with native audio cadence. Touch any historical log item or saved favorite to repeat pronunciation logs gracefully.
+
+### 3. Identity & Custom Settings
+- **First-access Onboarding Dialog**: Greets users upon first install and stores the username to customize application banners.
+- **Dynamic Font Size Scaling**: Choose between **Small**, **Default**, **Large**, or **Huge** layout adjustments inside the settings console (`getSharedPreferences` storage module).
+
+### 4. Recents, Favorites & Storage Persistence
+- Built-in local persistence (utilizing a reactive Room DB backplane) tracking active inputs.
+- Bookmark translations into a persistent favorites directory for handy future pronunciation guides.
+
+---
+
+## 🛡️ Setup & Technology Stack
+
+- **Framework**: Jetpack Compose (100% Kotlin-first declarative engine) with strict Material 3 integration.
+- **Persistence**: Room Database Engine (DAO, Entity models with reactive Flow components).
+- **Core Integrations**:
+  - `Android TTS (TextToSpeech)` engine for authentic audio playback.
+  - `RecognizerIntent` APIs for voice translation captures.
+  - Injected Gradle SDK credentials.
