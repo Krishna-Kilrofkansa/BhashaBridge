@@ -126,31 +126,46 @@ fun BhashaBridgeScreen(
     var meetsTtsInit by remember { mutableStateOf(false) }
 
     DisposableEffect(context) {
-        val ttsInstance = android.speech.tts.TextToSpeech(context) { status ->
-            if (status == android.speech.tts.TextToSpeech.SUCCESS) {
-                meetsTtsInit = true
+        var ttsInstance: android.speech.tts.TextToSpeech? = null
+        try {
+            ttsInstance = android.speech.tts.TextToSpeech(context.applicationContext) { status ->
+                if (status == android.speech.tts.TextToSpeech.SUCCESS) {
+                    android.os.Handler(android.os.Looper.getMainLooper()).post {
+                        meetsTtsInit = true
+                    }
+                }
             }
+            tts = ttsInstance
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        tts = ttsInstance
         onDispose {
-            ttsInstance.stop()
-            ttsInstance.shutdown()
+            try {
+                ttsInstance?.stop()
+                ttsInstance?.shutdown()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
     val speakText = { text: String ->
         val safeTts = tts
-        if (safeTts != null && meetsTtsInit) {
-            val locale = when (targetLang) {
-                "Hindi" -> java.util.Locale("hi", "IN")
-                "Tamil" -> java.util.Locale("ta", "IN")
-                "Telugu" -> java.util.Locale("te", "IN")
-                "Kannada" -> java.util.Locale("kn", "IN")
-                "Malayalam" -> java.util.Locale("ml", "IN")
-                else -> java.util.Locale("hi", "IN")
+        if (text.isNotEmpty() && safeTts != null && meetsTtsInit) {
+            try {
+                val locale = when (targetLang) {
+                    "Hindi" -> java.util.Locale("hi", "IN")
+                    "Tamil" -> java.util.Locale("ta", "IN")
+                    "Telugu" -> java.util.Locale("te", "IN")
+                    "Kannada" -> java.util.Locale("kn", "IN")
+                    "Malayalam" -> java.util.Locale("ml", "IN")
+                    else -> java.util.Locale("hi", "IN")
+                }
+                safeTts.language = locale
+                safeTts.speak(text, android.speech.tts.TextToSpeech.QUEUE_FLUSH, null, null)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-            safeTts.language = locale
-            safeTts.speak(text, android.speech.tts.TextToSpeech.QUEUE_FLUSH, null, null)
         }
     }
 
