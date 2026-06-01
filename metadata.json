@@ -1,0 +1,6 @@
+{
+  "name": "BhashaBridge",
+  "description": "Offline Hindi to South Indian language translator powered entirely by on-device Gemma 4 simulation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
